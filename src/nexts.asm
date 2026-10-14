@@ -197,6 +197,7 @@ test1_tm_composite:
         nextreg NR_ULA_CTRL,$00
         ld e,$01
         call map_halves
+        nextreg NR_TM_CTRL,$80          ; drop bit 0: per-tile attr bit 0 decides (NR $6B docs)
         ld a,$13
         call show_phase         ; 1c: all red (ULA over tilemap on right)
         ld a,1
