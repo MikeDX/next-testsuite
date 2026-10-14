@@ -8,7 +8,7 @@ No emulator is consulted. Colours are compared at RGB333 precision: an actual
 not documented, so this is the least-assumption comparison).
 
 Usage: verify.py RUN_DIR [--gen-only]
-  RUN_DIR holds phase_XX.png (320x240, display at x=32,y=24) and results.json.
+  RUN_DIR holds phase_XX.png (display centred in the frame) and results.json.
 """
 import json, os, sys
 from PIL import Image
@@ -16,7 +16,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 EXP = os.path.join(ROOT, "expected")
-DX, DY = 32, 24          # display origin inside the runner screenshot (zx_go harness frame)
+# display origin inside the screenshot: centred 256x192 (zx_go gives 320x240 or 320x256)
 
 def rgb333(c8):
     """NR $41: RRRGGGBB, 'the lower blue bit of the 9-bit colour will be a logical OR of blue bits 1 and 0'"""
@@ -83,6 +83,7 @@ def gen():
 def compare(grid, shot, ula_only=None):
     """returns (total mismatches, mismatches where expected pixel is NOT the ULA colour)"""
     bad = nonula = 0
+    DX, DY = (shot.width - 256) // 2, (shot.height - 192) // 2
     for y in range(192):
         for x in range(256):
             a = shot.getpixel((DX + x, DY + y))[:3]

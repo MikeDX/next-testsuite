@@ -3,7 +3,7 @@
   "results_table": {"address": "0x8000", "magic": "NXTS", "version_at": "0x8004", "count_at": "0x8005",
     "phase_at": "0x8006", "ack_at": "0x8007", "entries_at": "0x8010", "entry": "result,detail",
     "result_codes": {"0": "not run", "1": "pass", "2": "fail", "3": "visual: verdict from expected images"}},
-  "screenshot_display_origin": [32, 24],
+  "screenshot_display_origin": "centred 256x192",
   "compare": "RGB333 exact after round(v*7/255); 3-bit->8-bit DAC curve undocumented",
   "tests": [
     {"id": 1, "name": "tilemap compositing + NR $68 bit 7 + attr bit 0", "kind": "visual",
