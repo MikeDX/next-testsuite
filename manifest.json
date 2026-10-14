@@ -1,0 +1,29 @@
+{
+  "suite": "nexts milestone 1",
+  "results_table": {"address": "0x8000", "magic": "NXTS", "version_at": "0x8004", "count_at": "0x8005",
+    "phase_at": "0x8006", "ack_at": "0x8007", "entries_at": "0x8010", "entry": "result,detail",
+    "result_codes": {"0": "not run", "1": "pass", "2": "fail", "3": "visual: verdict from expected images"}},
+  "screenshot_display_origin": [32, 24],
+  "compare": "RGB333 exact after round(v*7/255); 3-bit->8-bit DAC curve undocumented",
+  "tests": [
+    {"id": 1, "name": "tilemap compositing + NR $68 bit 7 + attr bit 0", "kind": "visual",
+     "phases": {"11": "expected/phase_11.png", "12": "expected/phase_12.png", "13": "expected/phase_13.png"},
+     "doc": ["https://wiki.specnext.dev/Tilemap", "https://wiki.specnext.dev/Fallback_Colour_Register", "https://wiki.specnext.dev/Tilemap_Transparency_Index_Register"],
+     "quotes": ["NR $68 bit 7: 1 to disable ULA output", "Tile attribute bit 0: In 256-tile mode ULA over tilemap", "NR $4A: 8-bit colour to be used when all layers contain transparent pixel."]},
+    {"id": 2, "name": "9-bit tilemap X scroll + clip window", "kind": "visual",
+     "phases": {"21": ["expected/phase_21a.png", "expected/phase_21b.png"], "22": ["expected/phase_22a.png", "expected/phase_22b.png"]},
+     "undocumented": ["scroll direction: both readings accepted"],
+     "doc": ["https://wiki.specnext.dev/Tilemap", "https://wiki.specnext.dev/Clip_Window_Tilemap_Register"],
+     "quotes": ["NR $2F bits 1-0: MSB X Offset. Meaningful Range is 0-319 in 40 char mode", "The X coordinates are internally doubled (40x32 mode)", "The displayed area is \"inclusive\""]},
+    {"id": 3, "name": "4-bit sprite palette offset + attr2 X/Y mirror", "kind": "visual",
+     "phases": {"31": "expected/phase_31.png"},
+     "doc": ["https://wiki.specnext.dev/Sprites"],
+     "quotes": ["PPPP0000 + 0000IIII = PPPPIIII", "XM = 1 to mirror the sprite image horizontally YM = 1 to mirror the sprite image vertically", "sprite coordinates with 32,32 corresponding to the top left corner of the ULA screen"]},
+    {"id": 4, "name": "NR $6E read-back (write $45 -> read $05)", "kind": "cpu",
+     "doc": ["https://wiki.specnext.dev/Tilemap_Base_Address_Register"],
+     "quotes": ["upon writing value $45 the read of this register will produce value $05"]},
+    {"id": 5, "name": "NR $1B reads do not advance clip index", "kind": "cpu",
+     "doc": ["https://wiki.specnext.dev/Clip_Window_Tilemap_Register"],
+     "quotes": ["Read from register will only read currently selected coordinate, index is not modified"]}
+  ]
+}
