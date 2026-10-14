@@ -32,5 +32,5 @@ column 2: green = pass, red = fail, white = visual, black = not run.
     make                       # needs sjasmplus
     ZXGO=../zx_go-nexts tools/run.sh
 
-`cmd/nexts_run` lives on the zx_go branch `nexts-headless-runner`. It uses zx_go's
+Runner: `zx_go --nexts-run` (branch `nexts-headless-runner`) builds the machine exactly as the GUI does and writes phase PNGs plus `results.json`. The older `cmd/nexts_run` uses `pkg/testharness`, whose compositor has no tilemap or ULA palette, so do not trust its screenshots.
 `pkg/testharness` with LoadNEX, RunFrames and SaveScreenshot, and prints the table as JSON.
